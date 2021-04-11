@@ -18,7 +18,8 @@ from utils import progress_bar, simple_FC
 import matplotlib.pyplot as plt
 
 def train(epoch, net):
-    print('\nEpoch: %d' % epoch)
+    if args.verbose:
+        print('\nEpoch: %d' % epoch)
     net.train()
     train_loss = 0
     correct = 0
@@ -35,7 +36,7 @@ def train(epoch, net):
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets.argmax(1)).sum().item()
-        if args.verbose > 1:
+        if args.verbose:
             progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
     return 100.*correct/total, train_loss/(batch_idx+1)
@@ -57,7 +58,7 @@ def test(epoch, net, model_name, save_checkpoint=False):
             _, predicted = outputs.max(1)
             total += targets.size(0)
             correct += predicted.eq(targets.argmax(1)).sum().item()
-            if args.verbose > 1:
+            if args.verbose:
                 progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                              % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
     acc = 100.*correct/total
@@ -159,6 +160,8 @@ for n_hidden_unit in n_hidden_units:
             test_acc, test_loss = test(epoch, net, 'simple_FC_%d'%(n_hidden_unit), save_checkpoint=True)
             print('classification error reaches 0, stop training')
             break
+    print('Training Loss: %.3f | Acc: %.3f%%\n' % (train_loss, train_acc))
+    print('Test Loss: %.3f | Acc: %.3f%%\n' % (test_loss, test_acc))
     with open(os.path.join(args.log_path, 'FC_%d.txt'%n_hidden_unit), 'w') as fw:
         fw.write('Number of parameters: %d\n'%sum(p.numel() for p in net.parameters()))
         fw.write('Training Loss: %.3f | Acc: %.3f%%\n' % (train_loss, train_acc))
@@ -203,7 +206,10 @@ plt.tight_layout()
 ax.set_position([box.x0, box.y0,
              box.width, box.height * 0.9])
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.25), fancybox=True, ncol=4)
-plt.savefig('MNIST_double_descent_loss.png')
+if args.reuse:
+    plt.savefig('MNIST_double_descent_loss_w_weight_reuse.png')
+else:
+    plt.savefig('MNIST_double_descent_loss_wo_weight_reuse.png')
 
 plt.clf()
 fig = plt.figure()
@@ -216,4 +222,7 @@ plt.tight_layout()
 ax.set_position([box.x0, box.y0,
              box.width, box.height * 0.9])
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.25), fancybox=True, ncol=4)
-plt.savefig('MNIST_double_descent_accuracy.png')
+if args.reuse:
+    plt.savefig('MNIST_double_descent_loss_w_weight_accuracy.png')
+else:
+    plt.savefig('MNIST_double_descent_loss_wo_weight_accuracy.png')
