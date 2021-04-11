@@ -223,6 +223,6 @@ ax.set_position([box.x0, box.y0,
              box.width, box.height * 0.9])
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.25), fancybox=True, ncol=4)
 if args.reuse:
-    plt.savefig('MNIST_double_descent_loss_w_weight_accuracy.png')
+    plt.savefig('MNIST_double_descent_accuracy_w_weight_reuse.png')
 else:
-    plt.savefig('MNIST_double_descent_loss_wo_weight_accuracy.png')
+    plt.savefig('MNIST_double_descent_accuracy_wo_weight_reuse.png')
