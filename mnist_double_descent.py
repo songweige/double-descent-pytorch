@@ -160,7 +160,7 @@ for n_hidden_unit in n_hidden_units:
             test_acc, test_loss = test(epoch, net, 'simple_FC_%d'%(n_hidden_unit), save_checkpoint=True)
             print('classification error reaches 0, stop training')
             break
-    print('Training Loss: %.3f | Acc: %.3f%%\n' % (train_loss, train_acc))
+    print('Training Loss: %.3f | Acc: %.3f%%' % (train_loss, train_acc))
     print('Test Loss: %.3f | Acc: %.3f%%\n' % (test_loss, test_acc))
     with open(os.path.join(args.log_path, 'FC_%d.txt'%n_hidden_unit), 'w') as fw:
         fw.write('Number of parameters: %d\n'%sum(p.numel() for p in net.parameters()))
