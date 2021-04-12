@@ -8,5 +8,5 @@ python mnist_double_descent.py --reuse --verbose 1
 ```
 With weight reuse             |  Without weight reuse
 :-------------------------:|:-------------------------:
-![Loss](./assets/MNIST_double_descent_loss_wo_weight_reuse.png)  |  ![Loss](./assets/MNIST_double_descent_loss_wo_weight_reuse.png)
-![Accuracy](./assets/MNIST_double_descent_accuracy_wo_weight_reuse.png)  |  ![Accuracy](./assets/MNIST_double_descent_accuracy_wo_weight_reuse.png)
+![Loss](./assets/MNIST_double_descent_loss_w_weight_reuse.png)  |  ![Loss](./assets/MNIST_double_descent_loss_wo_weight_reuse.png)
+![Accuracy](./assets/MNIST_double_descent_accuracy_w_weight_reuse.png)  |  ![Accuracy](./assets/MNIST_double_descent_accuracy_wo_weight_reuse.png)
